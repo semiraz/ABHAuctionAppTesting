@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Product Page Regression Suite">
+    <listeners>
+        <listener class-name="test_component.Listeners"></listener>
+    </listeners>
+    <test verbose="2" preserve-order="true" name="/home/semira/IdeaProjects/Auction App Test">
+        <classes>
+            <class name="tests.regression_tests.ProductPageTest">
+            <methods>
+                <include name="verifyIfUserCanEnterSmallerAmountThanProductPrice"/>
+                <include name="verifyPlaceholderTextInInputField"/>
+            </methods>
+        </class>
+        </classes>
+    </test>
+</suite>
