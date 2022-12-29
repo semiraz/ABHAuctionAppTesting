@@ -12,6 +12,15 @@ public class CommonBarPage extends PageObject{
     @FindBy(xpath = "//a[text()='MY ACCOUNT']")
     private WebElement accountLink;
 
+    @FindBy(xpath = "//a[text()='Create Account']")
+    private WebElement createAccountBtn;
+
+    @FindBy(xpath = "//a[text()='Login']")
+    private WebElement loginBtn;
+
+    @FindBy(xpath = "(//button[text()='Logout'])[1]")
+    private WebElement logout;
+
     public CommonBarPage(WebDriver driver) {
         super(driver);
     }
@@ -26,5 +35,19 @@ public class CommonBarPage extends PageObject{
         return new MyAccountPage(driver);
     }
 
+    public CreateAccountPage goToCreateAccountPage() {
+        createAccountBtn.click();
+        return new CreateAccountPage(driver);
+    }
+
+    public LoginPage goToLoginPage() {
+        loginBtn.click();
+        return new LoginPage(driver);
+    }
+
+    public LandingPage logout(){
+        logout.click();
+        return new LandingPage(driver);
+    }
 
 }
