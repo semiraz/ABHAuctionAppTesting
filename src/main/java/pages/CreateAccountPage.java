@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class CreateAccountPage extends PageObject {
 
     public CreateAccountPage(WebDriver driver) {
@@ -24,6 +27,20 @@ public class CreateAccountPage extends PageObject {
 
     @FindBy(xpath = "//button[text()='REGISTER']")
     private WebElement registerBtn;
+
+    public boolean verifyPassword(String password) {
+        String regEx = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
+    public boolean verifyEmail(String email) {
+        String regEx = "([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$";
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
     public void createAnAccount(String firstName, String lastName,String email, String password) {
         this.firstName.sendKeys(firstName);

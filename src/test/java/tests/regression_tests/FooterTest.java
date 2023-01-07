@@ -28,7 +28,7 @@ public class FooterTest extends BaseTest {
     @Test(testName = "Verify Images On About Us page")
     public void verifyImagesIsPresentOnAboutUs() {
         footerSection.getAboutUs();
-        aboutUs.verifyImageIsPresent();
+        Assert.assertTrue(aboutUs.verifyImageIsPresent(), "Image is not present");
     }
 
 

@@ -4,61 +4,80 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.*;
 import test_component.BaseTest;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
 import static test_component.Utilities.*;
 
 public class SmokeTest extends BaseTest {
 
+    protected SoftAssert softAssert;
     protected LandingPage landingPage;
     protected ProductPage productPage;
     protected CreateAccountPage createAccountPage;
     protected CommonBarPage commonBarPage;
     protected LoginPage loginPage;
+    protected String username;
+    protected String password;
+    protected String fName;
+    protected String lName;
+    protected double price;
+    protected double highestInputBid;
+    protected List<String> firstName = Arrays.asList("Mini", "Maxi", "Kada", "Ben", "Jim", "Jane", "Lili");
+    protected List<String> lastName = Arrays.asList("Minic", "Maximic", "Smith", "Miller", "Jones", "Flofia", "Anderson");
+
 
     @BeforeTest
     public void setUp() throws IOException {
         driver = initializeDriver();
+        softAssert = new SoftAssert();
         landingPage = new LandingPage(driver);
         productPage = new ProductPage(driver);
         createAccountPage = new CreateAccountPage(driver);
         commonBarPage = new CommonBarPage(driver);
         loginPage = new LoginPage(driver);
+
+        fName = getFirstName(firstName);
+        lName = getLastName(lastName);
+        password = randomPassword(2,1,2,3);
+        username = generateRandomEmail(1, fName, lName);
     }
 
     @Test(testName = "Smoke Test")
-    public void smokeTest() throws InterruptedException {
+    public void smokeTest() {
         landingPage.goToLandingPage();
-        Assert.assertTrue(landingPage.verifyTitle("Auction App"));
-        Assert.assertTrue(landingPage.isLogoPresent());
-        Assert.assertTrue(landingPage.isHighlightedProductPresent());
+        softAssert.assertTrue(landingPage.verifyTitle(title));
+        softAssert.assertTrue(landingPage.isLogoPresent());
+        softAssert.assertTrue(landingPage.isHighlightedProductPresent());
 
-//        Thread.sleep(2000);
-//        commonBarPage.goToCreateAccountPage();
-//        createAccountPage.createAnAccount("Name", "Last", "email@gmail.com", "Pass123*");
-        //Jane Doe user@gmail.com Pass123*
-        Thread.sleep(2000);
+        commonBarPage.goToCreateAccountPage();
+        createAccountPage.createAnAccount(fName, lName, username, password);
+        softAssert.assertTrue(createAccountPage.verifyPassword(password), messagePasswordInvalid);
+        softAssert.assertTrue(createAccountPage.verifyEmail(username), messageEmailInvalid);
+
         commonBarPage.goToLoginPage();
-        loginPage.login("email@gmail.com", "Pass123*");
+        loginPage.login(username, password);
 
-        Thread.sleep(2000);
-        landingPage.getNavbarItemsPage("Last Chance");
-        Assert.assertTrue(landingPage.isDisplayedBasedOnTimeLeftInAuction(productName));
+        landingPage.getNavbarItemsPage(navbarOptionName);
+        softAssert.assertTrue(landingPage.isDisplayedBasedOnTimeLeftInAuction("Jacket"), messageErrorTimeLeft);
         landingPage.clickOnItem(productName);
 
+        price = productPage.getActualStartingPriceOfProduct();
         productPage.verifyNameAndPrice(productName, price);
-        Assert.assertTrue(productPage.placeBid(), "Entered price is smaller or equal to the product price or highest bid");
+        softAssert.assertTrue(productPage.placeBid(), messageErrorPlaceBid);
 
-//        Thread.sleep(2000);
-//        Assert.assertEquals(productPage.getHighestBid(), price, "The highest bid is not same as entered one");
+        highestInputBid = productPage.priceHighestBid();
+        softAssert.assertEquals(productPage.getHighestBid(), highestInputBid, messageErrorBadHighestBid);
 
-        Thread.sleep(2000);
-        Assert.assertEquals(productPage.getMessageCongrats(), messageCongrats, messageError());
+        softAssert.assertEquals(productPage.getMessageCongrats(), messageCongrats, messageError());
 
         commonBarPage.logout();
-
+        softAssert.assertAll();
     }
 
     @AfterTest
@@ -66,12 +85,3 @@ public class SmokeTest extends BaseTest {
         driver.quit();
     }
 }
-
-
-
-
-
-
-
-
-

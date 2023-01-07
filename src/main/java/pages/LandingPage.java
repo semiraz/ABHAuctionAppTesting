@@ -30,6 +30,7 @@ public class LandingPage extends PageObject {
     private List<WebElement> navbarOptionItems;
     @FindBy(css = ".c-navbar-item.c-focus")
     private WebElement focusNavbarItem;
+
     @FindBy(css = ".c-item a h3")
     private List<WebElement> itemsName;
 
@@ -50,7 +51,8 @@ public class LandingPage extends PageObject {
     protected ProductPage productPage;
 
     public void goToLandingPage() {
-        driver.get("http://ec2-3-67-80-227.eu-central-1.compute.amazonaws.com:8090/");
+//        driver.get("http://ec2-3-67-80-227.eu-central-1.compute.amazonaws.com:8090/");
+        driver.get("http://localhost:3000/");
     }
 
     public boolean isNavbarItemSelected() {

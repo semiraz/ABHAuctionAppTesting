@@ -89,14 +89,34 @@ public class ProductPage extends PageObject {
         }
         return highestBid;
     }
-
-    public boolean placeBid() {
+    public double priceHighestBid() {
         double bidPrice;
-        if (infoContainer == null) {
+        double highestBid = 0;
+        if (infoContainer != null) {
             bidPrice = getHighestBid() + 1;
             inputField.sendKeys(String.valueOf(bidPrice));
             button.click();
-            return  ((bidPrice > getActualStartingPriceOfProduct()) && (bidPrice > getHighestBid()));
+            if (bidPrice > getActualStartingPriceOfProduct() && bidPrice >= getHighestBid()) {
+                highestBid = bidPrice;
+            }
+        } else {
+            bidPrice = getActualStartingPriceOfProduct() + 1;
+            inputField.sendKeys(String.valueOf(bidPrice));
+            button.click();
+            if (bidPrice > getActualStartingPriceOfProduct()) {
+                highestBid = bidPrice;
+            }
+        }
+        return highestBid;
+    }
+
+    public boolean placeBid() {
+        double bidPrice;
+        if (infoContainer != null) {
+            bidPrice = getHighestBid() + 1;
+            inputField.sendKeys(String.valueOf(bidPrice));
+            button.click();
+            return  ((bidPrice > getActualStartingPriceOfProduct()) && (bidPrice >= getHighestBid()));
         } else {
             bidPrice = getActualStartingPriceOfProduct() + 1;
             inputField.sendKeys(String.valueOf(bidPrice));
@@ -124,14 +144,6 @@ public class ProductPage extends PageObject {
         return messageErrorLowerPriceBid.getText();
     }
 
-//    public void placeHighestBid(double price) {
-//        if (infoContainer.isDisplayed() && price > getHighestBid()) {
-//            inputField.sendKeys(String.valueOf(price));
-//            button.click();
-//        } else {
-//            System.out.println("Entered price is smaller or equal to the highest bid");
-//        }
-//    }
 
 
 }

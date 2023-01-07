@@ -2,11 +2,11 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 
-public class ShopPage extends PageObject {
-
-    public ShopPage(WebDriver driver) {
+public class BidsPage extends PageObject{
+    public BidsPage(WebDriver driver) {
         super(driver);
     }
+
 
 
 }
