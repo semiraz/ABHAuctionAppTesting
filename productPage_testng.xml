@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Product Page Regression Suite">
     <listeners>
-        <listener class-name="test_component.Listeners"></listener>
+        <listener class-name="test_component.Listeners"/>
     </listeners>
     <test verbose="2" preserve-order="true" name="/home/semira/IdeaProjects/Auction App Test">
         <classes>

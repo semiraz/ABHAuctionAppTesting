@@ -18,20 +18,22 @@ public class Listeners extends BaseTest implements ITestListener{
 
     ExtentReports extent = ExtentReport.getReportObject();
     ExtentTest test;
+    ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>(); //thread safe
 
     @Override
     public void onTestStart(ITestResult result) {
         test = extent.createTest(result.getMethod().getMethodName());
+        extentTest.set(test); //unique thread id
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        test.log(Status.PASS, "Test is successfully passed");
+        extentTest.get().log(Status.PASS, "Test is successfully passed");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        test.fail(result.getThrowable());
+        extentTest.get().fail(result.getThrowable());
         String testcaseName = result.getMethod().getMethodName();
 
         try {
@@ -51,7 +53,7 @@ public class Listeners extends BaseTest implements ITestListener{
             throw new RuntimeException(e);
         }
 
-        test.addScreenCaptureFromPath(pathName, testcaseName);
+        extentTest.get().addScreenCaptureFromPath(pathName, testcaseName);
     }
 
     @Override

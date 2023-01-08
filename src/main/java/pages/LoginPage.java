@@ -25,6 +25,10 @@ public class LoginPage extends PageObject {
     @FindBy(css = ".c-input-error")
     private WebElement inputError;
 
+    public WebElement getLoginBtn() {
+        return loginBtn;
+    }
+
     @FindBy(css = ".c-error-message")
     private WebElement errorMsg;
 
@@ -35,11 +39,7 @@ public class LoginPage extends PageObject {
     }
 
     public boolean isLoginPageOpen() {
-        if (inputError == null) {
-            return loginPageElement.isDisplayed();
-        } else {
-            return !inputError.isDisplayed();
-        }
+        return loginPageElement != null;
     }
 
     public WebElement getErrorMsg() {
@@ -50,26 +50,3 @@ public class LoginPage extends PageObject {
         return errorMsg.isDisplayed();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

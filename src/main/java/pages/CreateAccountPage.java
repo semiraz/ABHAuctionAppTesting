@@ -28,6 +28,12 @@ public class CreateAccountPage extends PageObject {
     @FindBy(xpath = "//button[text()='REGISTER']")
     private WebElement registerBtn;
 
+    @FindBy(css = ".c-error-message")
+    private WebElement errorMsg;
+
+    @FindBy(css = ".c-input-error")
+    private WebElement inputErrorMsg;
+
     public boolean verifyPassword(String password) {
         String regEx = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
         Pattern pattern = Pattern.compile(regEx);
@@ -42,6 +48,14 @@ public class CreateAccountPage extends PageObject {
         return matcher.matches();
     }
 
+//    public boolean isErrorMsgDisplayed() {
+//        return errorMsg.isDisplayed();
+//    }
+//
+//    public boolean isInputErrorMsgDisplayed() {
+//        return inputErrorMsg.isDisplayed();
+//    }
+
     public void createAnAccount(String firstName, String lastName,String email, String password) {
         this.firstName.sendKeys(firstName);
         this.lastName.sendKeys(lastName);
@@ -49,12 +63,4 @@ public class CreateAccountPage extends PageObject {
         this.password.sendKeys(password);
         registerBtn.click();
     }
-    
 }
-
-
-
-
-
-
-
