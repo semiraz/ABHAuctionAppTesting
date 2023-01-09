@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Smoke Test">
     <listeners>
-        <listener class-name="test_component.Listeners"></listener>
+        <listener class-name="test_component.Listeners"/>
     </listeners>
     <test verbose="2" preserve-order="true" name="/home/semira/IdeaProjects/Auction App Test">
     <classes>

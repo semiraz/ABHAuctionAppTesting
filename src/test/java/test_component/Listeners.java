@@ -14,11 +14,10 @@ import org.testng.ITestResult;
 import java.io.File;
 import java.io.IOException;
 
-public class Listeners implements ITestListener {
+public class Listeners extends BaseTest implements ITestListener{
 
     ExtentReports extent = ExtentReport.getReportObject();
     ExtentTest test;
-    public WebDriver driver;
 
     @Override
     public void onTestStart(ITestResult result) {

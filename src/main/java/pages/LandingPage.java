@@ -11,6 +11,7 @@ import java.util.Objects;
 public class LandingPage extends PageObject {
     public LandingPage(WebDriver driver) {
         super(driver);
+        productPage = new ProductPage(driver);
     }
 
     @FindBy(xpath = "//a[text()='HOME']")
@@ -19,7 +20,7 @@ public class LandingPage extends PageObject {
     @FindBy(css = ".c-search-field input")
     private WebElement searchBar;
 
-    @FindBy(css = ".c-navbar-logo")
+    @FindBy(css = ".c-navbar-logo a")
     private WebElement logo;
 
     @FindBy(css = ".c-main-product .c-info h1:first-child")
@@ -27,13 +28,36 @@ public class LandingPage extends PageObject {
 
     @FindBy(css = ".c-navbar-item")
     private List<WebElement> navbarOptionItems;
+    @FindBy(css = ".c-navbar-item.c-focus")
+    private WebElement focusNavbarItem;
+
     @FindBy(css = ".c-item a h3")
+    private List<WebElement> itemsName;
+
+    @FindBy(css = ".c-item span")
+    private List<WebElement> itemsPrice;
+
+    public List<WebElement> getItemsPrice() {
+        return itemsPrice;
+    }
+
+    public List<WebElement> getItemsName() {
+        return itemsName;
+    }
+
+    @FindBy(css = ".c-item")
     private List<WebElement> items;
 
+    protected ProductPage productPage;
+
     public void goToLandingPage() {
+//        driver.get("http://ec2-3-67-80-227.eu-central-1.compute.amazonaws.com:8090/");
         driver.get("http://localhost:3000/");
     }
 
+    public boolean isNavbarItemSelected() {
+        return focusNavbarItem.isEnabled();
+    }
     public boolean verifyTitle(String title) {
         return driver.getTitle().contains(title);
     }
@@ -56,14 +80,19 @@ public class LandingPage extends PageObject {
     }
 
     public boolean isDisplayedBasedOnTimeLeftInAuction(String itemName) {
-         WebElement itemFirst = items.get(0);
+        WebElement itemFirst = itemsName.get(0);
         return itemFirst.getText().equalsIgnoreCase(itemName);
     }
 
     public void clickOnItem(String itemName) {
-        Objects.requireNonNull(items.stream().filter(predicate -> predicate.getText().equalsIgnoreCase(itemName))
+        Objects.requireNonNull(itemsName.stream().filter(predicate -> predicate.getText().equalsIgnoreCase(itemName))
                 .findAny().orElse(null)).click();
     }
+
+    public List<WebElement> getItems() {
+        return items;
+    }
+
 
 
 }

@@ -17,12 +17,13 @@ public class AboutUs extends PageObject{
     @FindBy(xpath = "//div[@class='c-main-image']")
     private WebElement mainImage;
 
-    public void verifyImageIsPresent() {
+    public boolean verifyImageIsPresent() {
         for (WebElement w : otherImages) {
-            System.out.println(w.isDisplayed());
-            w.isDisplayed();
+            if (w.isDisplayed()) {
+                return true;
+            }
         }
-        System.out.println(mainImage.isDisplayed());
+        return false;
     }
 
 }

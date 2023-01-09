@@ -16,7 +16,7 @@ public class ProductPage extends PageObject {
     private WebElement productName;
 
     @FindBy(xpath = "//div[@class='c-product-info']/p[1]/span")
-    private WebElement priceProduct;
+    private WebElement startingPriceProduct;
 
     @FindBy(css = ".c-send-bid input[type='number']")
     private WebElement inputField;
@@ -37,37 +37,49 @@ public class ProductPage extends PageObject {
     @FindBy(xpath = "//*[@class='c-send-bid']/input")
     private WebElement placeholderValue;
 
-    private String getActualProductName() {
+    @FindBy(xpath = "//span[@class='c-last-item c-path-item']")
+    private WebElement singleProduct;
+
+    public String getActualProductName() {
         return productName.getText();
     }
 
-    public double getActualPriceOfProduct() {
-        return Double.parseDouble(priceProduct.getText().split("\\$")[1]);
+    public double getActualStartingPriceOfProduct() {
+        return Double.parseDouble(startingPriceProduct.getText().split("\\$")[1]);
+    }
+
+    public boolean isOpen() {
+        return singleProduct.isDisplayed();
     }
 
     public boolean verifyNameAndPrice(String name, double price) {
-        double priceD = Double.parseDouble(priceProduct.getText().split("\\$")[1]);
-        return productName.getText().equalsIgnoreCase(name) && priceD == price;
+        return productName.getText().equalsIgnoreCase(name) && getActualStartingPriceOfProduct() == price;
     }
 
-    //    public void getInfoFromBidContainer() {
-//        double highestBid = 0;
-//        int numberOdBids = 0;
-//        int timeLeft = 0;
-//
-//        for (WebElement w : infoBidContainer) {
-//            WebElement h = infoBidContainer.get(0);
-//            WebElement n = infoBidContainer.get(1);
-//            WebElement t = infoBidContainer.get(2);
-//            highestBid = Double.parseDouble(h.getText().split("\\$")[1]);
-//            numberOdBids = Integer.parseInt(n.getText());
-//            timeLeft = Integer.parseInt(t.getText().split("days")[0].trim());
-//        }
-//        System.out.println("highest bid: " + highestBid);
-//        System.out.println("Number of bids: " + numberOdBids);
-//        System.out.println("Time left: " + timeLeft);
-//
-//    }
+    public void getInfoFromBidContainer() {
+        double highestBid = 0;
+        int numberOdBids = 0;
+        String timeLeft = null;
+
+        if (infoContainer != null) {
+            for (WebElement w : infoBidContainer) {
+                WebElement h = infoBidContainer.get(0);
+                WebElement n = infoBidContainer.get(1);
+                WebElement t = infoBidContainer.get(2);
+
+                highestBid = Double.parseDouble(h.getText().split("\\$")[1]);
+                numberOdBids = Integer.parseInt(n.getText());
+//                timeLeft = Integer.parseInt(t.getText().split("\\w+")[0].trim());
+                timeLeft = t.getText();
+            }
+        } else {
+            getActualStartingPriceOfProduct();
+        }
+        System.out.println("highest bid: " + highestBid);
+        System.out.println("Number of bids: " + numberOdBids);
+        System.out.println("Time left: " + timeLeft);
+
+    }
     public double getHighestBid() {
         double highestBid = 0;
         for (WebElement w : infoBidContainer) {
@@ -77,17 +89,51 @@ public class ProductPage extends PageObject {
         }
         return highestBid;
     }
+    public double priceHighestBid() {
+        double bidPrice;
+        double highestBid = 0;
+        if (infoContainer != null) {
+            bidPrice = getHighestBid() + 1;
+            inputField.sendKeys(String.valueOf(bidPrice));
+            button.click();
+            if (bidPrice > getActualStartingPriceOfProduct() && bidPrice >= getHighestBid()) {
+                highestBid = bidPrice;
+            }
+        } else {
+            bidPrice = getActualStartingPriceOfProduct() + 1;
+            inputField.sendKeys(String.valueOf(bidPrice));
+            button.click();
+            if (bidPrice > getActualStartingPriceOfProduct()) {
+                highestBid = bidPrice;
+            }
+        }
+        return highestBid;
+    }
 
-    public boolean placeBid(double price) {
-        inputField.sendKeys(String.valueOf(price));
-        button.click();
-        return price > getActualPriceOfProduct();
+    public boolean placeBid() {
+        double bidPrice;
+        if (infoContainer != null) {
+            bidPrice = getHighestBid() + 1;
+            inputField.sendKeys(String.valueOf(bidPrice));
+            button.click();
+            return  ((bidPrice > getActualStartingPriceOfProduct()) && (bidPrice >= getHighestBid()));
+        } else {
+            bidPrice = getActualStartingPriceOfProduct() + 1;
+            inputField.sendKeys(String.valueOf(bidPrice));
+            button.click();
+            return bidPrice > getActualStartingPriceOfProduct();
+        }
+    }
+
+    public void placeSomeBid(double price) {
+            inputField.sendKeys(String.valueOf(price));
+            button.click();
     }
 
     public boolean getPlaceholderValue() {
         double placeholderValueD = Double.parseDouble(placeholderValue.getAttribute("placeholder")
                 .split("\\$")[1].split("or")[0].trim());
-        return placeholderValueD == getActualPriceOfProduct() || placeholderValueD == getHighestBid();
+        return placeholderValueD == getActualStartingPriceOfProduct() || placeholderValueD == getHighestBid();
     }
 
     public String getMessageCongrats() {
@@ -98,14 +144,6 @@ public class ProductPage extends PageObject {
         return messageErrorLowerPriceBid.getText();
     }
 
-    public void placeHighestBid(double price) {
-        if (infoContainer.isDisplayed() && price > getHighestBid()) {
-            inputField.sendKeys(String.valueOf(price));
-            button.click();
-        } else {
-            System.out.println("Entered price is smaller or equal to the highest bid");
-        }
-    }
 
 
 }
