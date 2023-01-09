@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.util.Properties;
 
 public class BaseTest {
-    protected WebDriver driver;
+    public WebDriver driver;
 
     public WebDriver initializeDriver() throws IOException {
         Properties properties = new Properties();
