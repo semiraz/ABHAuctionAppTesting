@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Regression Test Suite" parallel="classes">
+    <listeners>
+        <listener class-name="test_component.Listeners"/>
+    </listeners>
+
+    <test thread-count="5" name="Regression tests">
+    <classes>
+        <class name="tests.regression_tests.FooterTest">
+            <methods>
+                <include name="verifyImagesIsPresentOnAboutUs"/>
+            </methods>
+        </class>
+        <class name="tests.regression_tests.HomepageTest">
+            <methods>
+                <include name="verifyIfNavbarItemsNameAndPriceAreAsExpected"/>
+            </methods>
+        </class>
+        <class name="tests.regression_tests.MyAccountTest">
+            <methods>
+                <include name="createAnAccount"/>
+                <include name="verifyIfUserCanChangePersonalInformation"/>
+                <include name="verifyIfUserCanChangeCardInfo"/>
+                <include name="verifyIfUserCanChangeShippingInfo"/>
+            </methods>
+        </class>
+        <class name="tests.regression_tests.ProductPageTest">
+            <methods>
+                <include name="verifyIfUserCanEnterSmallerAmountThanProductPriceOrLastBid"/>
+                <include name="verifyPlaceholderTextInInputField"/>
+                <include name="verifyProductPageIsOpen"/>
+            </methods>
+        </class>
+        <class name="tests.regression_tests.RegistrationTest">
+            <methods>
+                <include name="verifyIfUserCanCreateAccount"/>
+            </methods>
+        </class>
+    </classes>
+</test>
+</suite>

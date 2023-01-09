@@ -12,7 +12,7 @@ public class CommonBarPage extends PageObject{
     @FindBy(xpath = "//a[text()='MY ACCOUNT']")
     private WebElement accountLink;
 
-    @FindBy(xpath = "//a[text()='Create Account']")
+    @FindBy(xpath = "//a[normalize-space()='Create Account']")
     private WebElement createAccountBtn;
 
     @FindBy(xpath = "//a[text()='Login']")

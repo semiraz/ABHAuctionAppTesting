@@ -1,0 +1,20 @@
+[
+  {
+    "firstName": "Pokemn",
+    "lastName" : "Digi",
+    "email": "poke_digi@gmail.com",
+    "password": "Pass123*"
+  },
+  {
+    "firstName": "Bad",
+    "lastName" : "Mas",
+    "email": "bad*email-@2gmail.com",
+    "password": "Pass123*"
+  },
+  {
+    "firstName": "Ormar",
+    "lastName" : "Werity",
+    "email": "ormar_w@gmail.domain.com",
+    "password": "Pass123*"
+  }
+]

@@ -3,6 +3,8 @@ package test_component;
 import org.apache.maven.surefire.shared.lang3.RandomStringUtils;
 import org.openqa.selenium.WebDriver;
 
+import java.sql.Struct;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,6 +22,29 @@ public class Utilities {
     public static String messagePasswordInvalid = "Password is invalid";
     public static String messageEmailInvalid = "Email is invalid";
     public static String messageErrorTimeLeft = "It is not displayed based on the time left";
+
+    public static List<String> firstName = Arrays.asList("Mini", "Maxi", "Kada", "Ben", "Jim", "Jane", "Lili");
+    public static List<String> lastName = Arrays.asList("Minic", "Maximic", "Smith", "Miller", "Jones", "Flofia", "Anderson");
+
+    //MyAccountTest:
+    //Profile info:
+    public static String option = "Profile";
+    public static String firName = "Maja";
+    public static String lasName = "Kabiv";
+    public static String phoneNum = "1234568";
+
+    //Card info:
+    public static String nameOnCard = "MAJA KAVIB";
+    public static String cardNumb = "9865567891234545";
+    public static String cvv = "589";
+
+    //Shipping info:
+    public static String street = "My Street 85";
+    public static String city = "London";
+    public static String zipCode = "85024";
+    public static String state = "Sta";
+    public static String country = "England";
+
 
 
     protected static String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -51,6 +76,10 @@ public class Utilities {
 
     public static String messageError() {
         return "Message is not correct";
+    }
+
+    public static String messageErrorInfo() {
+        return "Info is not correct";
     }
 
     public static String generateRandomEmail(int length, String name, String lastName) {

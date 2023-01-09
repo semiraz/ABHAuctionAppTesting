@@ -72,6 +72,26 @@
                 </pluginManagement>
             </build>
         </profile>
+
+        <profile>
+            <id>Regression</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <version>3.0.0-M7</version>
+                            <configuration>
+                                <suiteXmlFiles>
+                                    <suiteXmlFile>regression_testng.xml</suiteXmlFile>
+                                </suiteXmlFiles>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
     </profiles>
 
     <properties>
