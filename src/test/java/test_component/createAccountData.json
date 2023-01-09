@@ -1,8 +1,8 @@
 [
   {
-    "firstName": "Pandoya",
-    "lastName" : "Vebit",
-    "email": "some_memail@gmail.com",
+    "firstName": "Pokemn",
+    "lastName" : "Digi",
+    "email": "poke_digi@gmail.com",
     "password": "Pass123*"
   },
   {
@@ -12,9 +12,9 @@
     "password": "Pass123*"
   },
   {
-    "firstName": "Paulina",
-    "lastName" : "Likwi",
-    "email": "paulina@gmail.com",
+    "firstName": "Ormar",
+    "lastName" : "Werity",
+    "email": "ormar_w@gmail.domain.com",
     "password": "Pass123*"
   }
 ]
