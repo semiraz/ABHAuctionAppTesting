@@ -9,6 +9,7 @@ import pages.*;
 import test_component.BaseTest;
 import test_component.Utilities;
 
+import java.awt.*;
 import java.io.IOException;
 
 import static test_component.Utilities.*;
@@ -72,10 +73,25 @@ public class MyAccountTest extends BaseTest {
 
         softAssert.assertTrue(profilePage.arePersonalInfoChanged(personalInfo));
         softAssert.assertAll();
-
     }
 
     @Test(priority = 3)
+    public void verifyIfUserCanChangePhoto() throws InterruptedException, AWTException {
+        LoginPage loginPage = commonBarPage.goToLoginPage();
+        loginPage.login("kivi@gmail.com", "Pass123*");
+
+        MyAccountPage myAccountPage = commonBarPage.goToMyAccountPage();
+        Thread.sleep(2000);
+        myAccountPage.chooseNavbar(option);
+        Thread.sleep(2000);
+        softAssert.assertEquals(myAccountPage.isCorrectPageOpened(), option);
+
+        profilePage.uploadPhoto("/home/semira/Downloads/pexels-jill-burrow-6387865.jpg");
+        profilePage.saveInfo();
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 4)
     public void verifyIfUserCanChangeCardInfo() {
         LoginPage loginPage = commonBarPage.goToLoginPage();
         loginPage.login(username, password);
@@ -95,7 +111,7 @@ public class MyAccountTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 4)
+    @Test(priority = 5)
     public void verifyIfUserCanChangeShippingInfo() throws InterruptedException {
         LoginPage loginPage = commonBarPage.goToLoginPage();
         loginPage.login(username, password);

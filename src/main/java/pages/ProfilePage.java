@@ -7,6 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,7 +131,41 @@ public class ProfilePage extends PageObject {
         return placehol.contains(info);
     }
 
+    public void uploadPhoto(String url) throws AWTException {
+        changePhotoBtn.click();
+        Robot robot = new Robot();
+
+        // copying File path to Clipboard
+        StringSelection str = new StringSelection(url);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(str, null);
+
+        //press Ctr+V for pasting
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+
+        //release Ctr+V for pasting
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyRelease(KeyEvent.VK_V);
+
+        //for pressing and releasing Enter
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+    }
+
 
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

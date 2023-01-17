@@ -13,7 +13,7 @@ public class MyAccountPage extends PageObject {
 
     @FindBy(css = "div[class='c-navbar-list'] div")
     private List<WebElement> navbarElementList;
-    @FindBy(css = ".c-navbar-element.c-navbar-element-focused")
+    @FindBy(css = ".c-navbar-element.c-navbar-element--focused")
     private WebElement focusedNavbarEl;
 
     public void chooseNavbar(String option) {
