@@ -80,8 +80,7 @@ public class LandingPage extends PageObject {
     }
 
     public boolean isDisplayedBasedOnTimeLeftInAuction(String itemName) {
-        WebElement itemFirst = itemsName.get(0);
-        return itemFirst.getText().equalsIgnoreCase(itemName);
+        return itemsName.stream().anyMatch(p -> p.getText().equalsIgnoreCase(itemName));
     }
 
     public void clickOnItem(String itemName) {

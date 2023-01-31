@@ -31,7 +31,7 @@ public class ProfilePage extends PageObject {
     private WebElement phoneNumber;
     @FindBy(xpath = "//div[@class='c-text-input']/input")
     private List<WebElement> placeholdersValue;
-    @FindBy(xpath = "//input[@name='holderName']")
+    @FindBy(xpath = "//input[@name='holderFullName']")
     private WebElement nameOnCard;
     @FindBy(xpath = "//input[@name='number']")
     private WebElement cardNumber;
@@ -95,7 +95,7 @@ public class ProfilePage extends PageObject {
 
     public boolean arePersonalInfoChanged(PersonalInfo personalInfo) {
         ArrayList<String> plValue = new ArrayList<>();
-        for (int i=0; i< placeholdersValue.size(); i++) {
+        for (int i=0; i<placeholdersValue.size(); i++) {
             String pl = placeholdersValue.get(i).getAttribute("placeholder");
             if (!plValue.contains(pl)) {
                 plValue.add(pl);
@@ -151,21 +151,4 @@ public class ProfilePage extends PageObject {
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
     }
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

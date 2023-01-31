@@ -35,7 +35,7 @@ public class CreateAccountPage extends PageObject {
     private WebElement inputErrorMsg;
 
     public boolean verifyPassword(String password) {
-        String regEx = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        String regEx = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*&])[A-Za-z\\d@$!%*&]{8,}$";
         Pattern pattern = Pattern.compile(regEx);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
