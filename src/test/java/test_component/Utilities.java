@@ -3,7 +3,6 @@ package test_component;
 import org.apache.maven.surefire.shared.lang3.RandomStringUtils;
 import org.openqa.selenium.WebDriver;
 
-import java.sql.Struct;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -49,7 +48,7 @@ public class Utilities {
 
     protected static String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     protected static String lower = "abcdefghijklmnopqrstuvwxyz";
-    protected static String character = "!@#$%^&*";
+    protected static String character = "!@$%&*";
     protected static String number = "1234567890";
 
     public static String pageLoadFail(String value) {
@@ -88,7 +87,6 @@ public class Utilities {
         String email = "";
         String temp = RandomStringUtils.random(length, allowedChars);
         email = name + temp + lastName + "@gmail.com";
-//        email = temp.substring(0, temp.length() - 9) + "@gmail.com";
         return email;
     }
 
@@ -100,21 +98,4 @@ public class Utilities {
         String n = RandomStringUtils.random(lengthNumber, number);
         return c.concat(u).concat(l).concat(n);
     }
-
-//    public static String getEmail() {
-//        String regEx = "([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$";
-//    }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-

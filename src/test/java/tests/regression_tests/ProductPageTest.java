@@ -39,7 +39,7 @@ public class ProductPageTest extends BaseTest {
     @Test
     public void verifyIfUserCanEnterSmallerAmountThanProductPriceOrLastBid() {
         commonBarPage.goToLoginPage();
-        loginPage.login("kivi@gmail.com", "Pass123*");
+        loginPage.login("mel_nova@gmail.com", "Pass123*");
         landingPage.clickOnItem("Watch");
 
         if (productPage.getHighestBid() > 0) {
@@ -55,7 +55,7 @@ public class ProductPageTest extends BaseTest {
     @Test
     public void verifyPlaceholderTextInInputField() {
         landingPage.clickOnItem(productName);
-        softAssert.assertTrue(productPage.getPlaceholderValue(), "It is not same price");
+        softAssert.assertTrue(productPage.getPlaceholderValue(), "It is not the same price");
         softAssert.assertAll();
     }
 
@@ -65,11 +65,6 @@ public class ProductPageTest extends BaseTest {
         softAssert.assertTrue(productPage.isOpen());
         softAssert.assertAll();
     }
-
-//    @Test
-//    public void verifyIfUserCanGetMessageWhenHeIsOutbid() {
-//
-//    }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {

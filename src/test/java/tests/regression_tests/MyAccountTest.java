@@ -30,11 +30,12 @@ public class MyAccountTest extends BaseTest {
 
     @BeforeClass
     public void createDataForAccount() {
-        password = randomPassword(2,1,2,3);
+        password = randomPassword(2, 1, 2, 3);
         fName = getFirstName(firstName);
         lName = getLastName(lastName);
         username = generateRandomEmail(1, fName, lName);
     }
+
     @BeforeMethod(alwaysRun = true)
     public void setUp() throws IOException {
         driver = initializeDriver();
@@ -49,9 +50,10 @@ public class MyAccountTest extends BaseTest {
     }
 
     @Test(priority = 1)
-    public void createAnAccount() {
+    public void createAnAccount() throws InterruptedException {
         CreateAccountPage createAccountPage = commonBarPage.goToCreateAccountPage();
         createAccountPage.createAnAccount(fName, lName, username, password);
+        Thread.sleep(3000);
     }
 
     @Test(priority = 2)
@@ -70,6 +72,9 @@ public class MyAccountTest extends BaseTest {
         profilePage.fillPersonalInfoForm(personalInfo);
         profilePage.saveInfo();
 //        Assert.assertTrue(profilePage.verifySaveButtonUpdating(), "Something went wrong");
+        Thread.sleep(3000);
+        commonBarPage.goToMyAccountPage();
+        myAccountPage.chooseNavbar(option);
 
         softAssert.assertTrue(profilePage.arePersonalInfoChanged(personalInfo));
         softAssert.assertAll();
@@ -78,7 +83,7 @@ public class MyAccountTest extends BaseTest {
     @Test(priority = 3)
     public void verifyIfUserCanChangePhoto() throws InterruptedException, AWTException {
         LoginPage loginPage = commonBarPage.goToLoginPage();
-        loginPage.login("kivi@gmail.com", "Pass123*");
+        loginPage.login(username, password);
 
         MyAccountPage myAccountPage = commonBarPage.goToMyAccountPage();
         Thread.sleep(2000);
@@ -86,13 +91,14 @@ public class MyAccountTest extends BaseTest {
         Thread.sleep(2000);
         softAssert.assertEquals(myAccountPage.isCorrectPageOpened(), option);
 
-        profilePage.uploadPhoto("/home/semira/Downloads/pexels-jill-burrow-6387865.jpg");
+        profilePage.uploadPhoto("/Users/semira/Downloads/profileImg.webp");
         profilePage.saveInfo();
+        Thread.sleep(2000);
         softAssert.assertAll();
     }
 
     @Test(priority = 4)
-    public void verifyIfUserCanChangeCardInfo() {
+    public void verifyIfUserCanChangeCardInfo() throws InterruptedException {
         LoginPage loginPage = commonBarPage.goToLoginPage();
         loginPage.login(username, password);
 
@@ -104,10 +110,15 @@ public class MyAccountTest extends BaseTest {
                 .setCardNumber(cardNumb).setExpirationDate("12.12.2030").setCvvValue(cvv).build();
         profilePage.fillCardInfoForm(cardInfo);
         profilePage.saveInfo();
+        Thread.sleep(3000);
+
+        commonBarPage.goToMyAccountPage();
+        myAccountPage.chooseNavbar(option);
+
         softAssert.assertTrue(profilePage.openCardInfoContainer(), pageLoadFail("CardInfoContainer"));
         js.executeScript("window.scrollBy(0,900)");
         softAssert.assertTrue(profilePage.areInfoChanged(nameOnCard), Utilities.messageErrorInfo());
-        softAssert.assertFalse(profilePage.areInfoChanged(cardNumb), Utilities.messageErrorInfo());
+        softAssert.assertTrue(profilePage.areInfoChanged(cardNumb), Utilities.messageErrorInfo());
         softAssert.assertAll();
     }
 
@@ -118,7 +129,7 @@ public class MyAccountTest extends BaseTest {
 
         MyAccountPage myAccountPage = commonBarPage.goToMyAccountPage();
         myAccountPage.chooseNavbar(option);
-        
+
         softAssert.assertTrue(profilePage.openShippingInfoContainer(), pageLoadFail("ShippingFormContainer"));
 
         ShippingInfo shippingInfo = new ShippingInfo.ShippingInfoBuilder().setStreet(street).setCity(city)
@@ -126,6 +137,9 @@ public class MyAccountTest extends BaseTest {
         profilePage.fillShippingInfoForm(shippingInfo);
         profilePage.saveInfo();
 
+        Thread.sleep(3000);
+        commonBarPage.goToMyAccountPage();
+        myAccountPage.chooseNavbar(option);
         softAssert.assertTrue(profilePage.openShippingInfoContainer(), pageLoadFail("ShippingFormContainer"));
         js.executeScript("window.scrollBy(0,1000)");
         softAssert.assertTrue(profilePage.areInfoChanged(country), Utilities.messageErrorInfo());
@@ -136,5 +150,4 @@ public class MyAccountTest extends BaseTest {
     public void tearDown() {
         driver.close();
     }
-
 }

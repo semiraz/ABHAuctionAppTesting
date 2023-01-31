@@ -49,7 +49,7 @@ public class SmokeTest extends BaseTest {
     }
 
     @Test(testName = "Smoke Test")
-    public void smokeTest() {
+    public void smokeTest() throws InterruptedException {
         landingPage.goToLandingPage();
         softAssert.assertTrue(landingPage.verifyTitle(title));
         softAssert.assertTrue(landingPage.isLogoPresent());
@@ -65,6 +65,8 @@ public class SmokeTest extends BaseTest {
 
         landingPage.getNavbarItemsPage(navbarOptionName);
         softAssert.assertTrue(landingPage.isDisplayedBasedOnTimeLeftInAuction("Jacket"), messageErrorTimeLeft);
+        Thread.sleep(2000);
+        landingPage.getNavbarItemsPage("New Arrivals");
         landingPage.clickOnItem(productName);
 
         price = productPage.getActualStartingPriceOfProduct();
