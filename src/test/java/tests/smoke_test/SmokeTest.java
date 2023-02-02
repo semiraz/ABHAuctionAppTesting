@@ -64,7 +64,7 @@ public class SmokeTest extends BaseTest {
         loginPage.login(username, password);
 
         landingPage.getNavbarItemsPage(navbarOptionName);
-        softAssert.assertTrue(landingPage.isDisplayedBasedOnTimeLeftInAuction("Jacket"), messageErrorTimeLeft);
+        softAssert.assertTrue(landingPage.isDisplayedBasedOnTimeLeftInAuction("Blue jeans"), messageErrorTimeLeft);
         Thread.sleep(2000);
         landingPage.getNavbarItemsPage("New Arrivals");
         landingPage.clickOnItem(productName);
