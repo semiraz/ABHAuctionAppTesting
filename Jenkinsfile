@@ -16,8 +16,8 @@ pipeline {
                     }
                                         post {
                                             always {
-                                                publishHTML(reports : [
-                                                allowMissing: false,
+                                                publishHTML(
+                                                [allowMissing: false,
                                                 alwaysLinkToLastBuild: false,
                                                 keepAll: false,
                                                 reportDir: 'reports/',
