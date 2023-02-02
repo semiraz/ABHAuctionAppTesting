@@ -21,8 +21,8 @@ public class BaseTest {
         FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/globalData.properties");
         properties.load(fis);
 
-        String browserName = properties.getProperty("browser");
-     //   String browserName = properties.getProperty("browser") != null ? System.getProperty("browser") : properties.getProperty("browser");
+     //   String browserName = properties.getProperty("browser");
+        String browserName = properties.getProperty("browser") != null ? System.getProperty("browser") : properties.getProperty("browser");
         if (browserName.contains("chrome")) {
             ChromeOptions options = new ChromeOptions();
             WebDriverManager.chromedriver().setup();
