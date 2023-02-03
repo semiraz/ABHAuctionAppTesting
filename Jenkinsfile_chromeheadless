@@ -1,7 +1,7 @@
 pipeline {
     agent any
-    parameters {
-        choice(name : 'browser', choices: ['chrome', 'chromeheadless', 'firefox', 'firefoxheadless'])
+    environment {
+        browser = 'chrome'
     }
 
     tools {
@@ -13,13 +13,13 @@ pipeline {
         stage('Run UI Smoke Test') {
             steps {
              // Run Maven on a Unix agent.
-                sh "mvn test -PSmoke -Dbrowser=$params.browser"
+                sh "mvn test -PSmoke -Dbrowser='$browser'"
             }
         }
 
         stage('Run UI Regression Tests') {
             steps {
-                sh "mvn test -PRegression -Dbrowser=$params.browser"
+                sh "mvn test -PRegression -Dbrowser='$browser'"
             }
         }
     }
