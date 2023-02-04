@@ -28,8 +28,8 @@ public class SmokeTest extends BaseTest {
     protected String lName;
     protected double price;
     protected double highestInputBid;
-    protected List<String> firstName = Arrays.asList("Mini", "Maxi", "Kada", "Ben", "Jim", "Jane", "Lili");
-    protected List<String> lastName = Arrays.asList("Minic", "Maximic", "Smith", "Miller", "Jones", "Flofia", "Anderson");
+    protected List<String> firstName = Arrays.asList("Ben", "Andrea", "Momo", "Lala", "Jim", "Jane", "Vanda");
+    protected List<String> lastName = Arrays.asList("Van", "Ponders", "Smith", "Miller", "Jones", "West", "Anderson");
 
 
     @BeforeTest
@@ -64,7 +64,7 @@ public class SmokeTest extends BaseTest {
         loginPage.login(username, password);
 
         landingPage.getNavbarItemsPage(navbarOptionName);
-        softAssert.assertTrue(landingPage.isDisplayedBasedOnTimeLeftInAuction("Blue jeans"), messageErrorTimeLeft);
+        softAssert.assertTrue(landingPage.isDisplayedBasedOnTimeLeftInAuction("Sweater"), messageErrorTimeLeft);
         Thread.sleep(2000);
         landingPage.getNavbarItemsPage("New Arrivals");
         landingPage.clickOnItem(productName);
