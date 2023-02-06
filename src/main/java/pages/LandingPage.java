@@ -51,7 +51,7 @@ public class LandingPage extends PageObject {
     protected ProductPage productPage;
 
     public void goToLandingPage() {
-        driver.get("http://ec2-3-123-38-247.eu-central-1.compute.amazonaws.com:8090/");
+        driver.get("http://ec2-3-120-228-194.eu-central-1.compute.amazonaws.com:8090/");
 //        driver.get("http://localhost:3000/");
     }
 
