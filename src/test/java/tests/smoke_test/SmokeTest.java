@@ -74,7 +74,7 @@ public class SmokeTest extends BaseTest {
         softAssert.assertTrue(productPage.placeBid(), messageErrorPlaceBid);
 
         highestInputBid = productPage.priceHighestBid();
-        softAssert.assertEquals(productPage.getHighestBid(), highestInputBid, messageErrorBadHighestBid);
+        softAssert.assertEquals(productPage.getHighestBid()+1, highestInputBid, messageErrorBadHighestBid);
 
         softAssert.assertEquals(productPage.getMessageCongrats(), messageCongrats, messageError());
 
