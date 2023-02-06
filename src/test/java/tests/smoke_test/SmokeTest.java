@@ -64,7 +64,7 @@ public class SmokeTest extends BaseTest {
         loginPage.login(username, password);
 
         landingPage.getNavbarItemsPage(navbarOptionName);
-        softAssert.assertTrue(landingPage.isDisplayedBasedOnTimeLeftInAuction("Sweater"), messageErrorTimeLeft);
+        softAssert.assertTrue(landingPage.isDisplayedBasedOnTimeLeftInAuction(productName), messageErrorTimeLeft);
         Thread.sleep(2000);
         landingPage.getNavbarItemsPage("New Arrivals");
         landingPage.clickOnItem(productName);
@@ -74,7 +74,7 @@ public class SmokeTest extends BaseTest {
         softAssert.assertTrue(productPage.placeBid(), messageErrorPlaceBid);
 
         highestInputBid = productPage.priceHighestBid();
-        softAssert.assertEquals(productPage.getHighestBid()+1, highestInputBid, messageErrorBadHighestBid);
+        softAssert.assertEquals(productPage.getHighestBid(), highestInputBid, messageErrorBadHighestBid);
 
         softAssert.assertEquals(productPage.getMessageCongrats(), messageCongrats, messageError());
 

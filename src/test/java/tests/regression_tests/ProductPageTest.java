@@ -40,7 +40,7 @@ public class ProductPageTest extends BaseTest {
     public void verifyIfUserCanEnterSmallerAmountThanProductPriceOrLastBid() {
         commonBarPage.goToLoginPage();
         loginPage.login("mel_nova@gmail.com", "Pass123*");
-        landingPage.clickOnItem("Watch");
+        landingPage.clickOnItem("Bag");
 
         if (productPage.getHighestBid() > 0) {
             productPage.placeSomeBid(productPage.getHighestBid() - 1);

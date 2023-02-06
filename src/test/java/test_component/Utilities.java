@@ -10,7 +10,7 @@ import java.util.List;
 public class Utilities {
 
     protected WebDriver driver;
-    public static String productName = "Watch";
+    public static String productName = "Bag";
     public static String title = "Auction App";
     public static String navbarOptionName = "Last Chance";
     public static String messageCongrats = "Congrats! You are the highest bider!";
